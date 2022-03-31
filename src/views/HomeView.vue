@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld msg="Tâches" />
-    <MyForm />
+    <MyForm @createtask="addTask" />
   </div>
 </template>
 
@@ -15,6 +15,12 @@ export default {
   components: {
     HelloWorld,
     MyForm,
+  },
+  setup() {
+    function addTask(data) {
+      console.log("Home.vue | addTask()", data);
+    }
+    return { addTask };
   },
 };
 </script>
