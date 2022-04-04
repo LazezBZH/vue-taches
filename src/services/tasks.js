@@ -1,14 +1,22 @@
 let tasks = [];
+const storageKey = "taches-vue";
+
 function create(task) {
+  if (tasks === null) {
+    tasks = [];
+  }
   tasks = [task, ...tasks];
   console.log("tasks", tasks);
+  save();
 }
 function read() {
+  tasks = retrieveTasks();
   return tasks;
 }
 
 function deleteTask(id) {
   tasks = tasks.filter((t) => t.id !== id);
+  save();
 }
 
 function convertCase(temporalityKebabCase) {
@@ -28,6 +36,15 @@ function convertCase(temporalityKebabCase) {
       break;
   }
   return result;
+}
+
+function save() {
+  localStorage.setItem(storageKey, JSON.stringify(tasks));
+}
+
+function retrieveTasks() {
+  const fromLocalStorage = localStorage.getItem(storageKey);
+  return JSON.parse(fromLocalStorage);
 }
 
 export default {
