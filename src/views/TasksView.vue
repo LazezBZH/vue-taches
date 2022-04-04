@@ -47,6 +47,7 @@
       <h3>{{ task.name }}</h3>
       <p>{{ task.description }}</p>
       <p>Échéance: {{ convertCase(task.temporality) }}</p>
+      <button class="btn" @click="() => deleteTask(task.id)">suppr</button>
     </div>
   </div>
 </template>
@@ -86,6 +87,12 @@ export default {
       }
     }
 
+    function deleteTask(id) {
+      tasksService.deleteTask(id);
+      tasks.value = tasksService.read();
+      filter();
+    }
+
     watch(selectedTemporality, (newValue, oldValue) => {
       console.log("new: ", newValue, "   ", "old: ", oldValue);
       if (newValue !== "") {
@@ -103,6 +110,7 @@ export default {
       tasksFiltered,
       convertCase,
       filter,
+      deleteTask,
     };
   },
 };
