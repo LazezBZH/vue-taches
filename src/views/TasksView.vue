@@ -28,7 +28,8 @@ export default {
 <style scoped>
 .task {
   width: 50%;
-  margin: auto;
+  margin: 0.5rem auto;
+
   border: 0.3rem solid #42b983;
   border-radius: 1rem;
 }

@@ -1,7 +1,13 @@
 <template>
   <h2>Créer une tâche</h2>
   <form v-on:submit.prevent="createTask">
-    <input type="text" placeholder="Nom de la tâche" v-model="name" /> <br />
+    <input
+      type="text"
+      placeholder="Nom de la tâche"
+      v-model="name"
+      ref="txtName"
+    />
+    <br />
     <textarea
       name=""
       id=""
@@ -24,7 +30,7 @@
   </form>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 export default {
   name: "MyForm",
   emits: ["createtask"],
@@ -49,6 +55,7 @@ export default {
       },
     ]);
     const temporality = ref("");
+    let txtName = ref(null);
 
     function createTask() {
       const task = {
@@ -65,13 +72,18 @@ export default {
       name.value = "";
       description.value = "";
       temporality.value = "";
+      txtName.value.focus();
     }
+    onMounted(() => {
+      txtName.value.focus();
+    });
     return {
       name,
       description,
       temporalityTypes,
       temporality,
       createTask,
+      txtName,
     };
   },
 };
