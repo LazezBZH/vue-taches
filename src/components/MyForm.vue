@@ -35,17 +35,17 @@ export default {
       {
         id: 1,
         name: "court terme",
-        value: "short-terme",
+        value: "short-term",
       },
       {
         id: 2,
         name: "moyen terme",
-        value: "medium-terme",
+        value: "medium-term",
       },
       {
         id: 3,
         name: "long terme",
-        value: "long-terme",
+        value: "long-term",
       },
     ]);
     const temporality = ref("");
@@ -81,7 +81,20 @@ input,
 textarea,
 select,
 button {
-  width: 80%;
-  margin: 2rem 4rem;
+  width: 50%;
+  height: 2rem;
+  margin: 1rem auto;
+  border: 0.2rem solid #42b983;
+}
+textarea {
+  height: auto;
+}
+button {
+  background-color: #85bba385;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+h2 {
+  color: #42b983;
 }
 </style>
