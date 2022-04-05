@@ -1,9 +1,16 @@
 <template>
   <h2>Toutes les tâches</h2>
+  {{ isInEditMode }}
+  <MyModal
+    v-if="isInEditMode"
+    :task="taskToEdit"
+    @updatetask="updateTask($event)"
+    @cancel="cancelEdit"
+  />
   <input
-    type="text"
+    type="search"
     name=""
-    id=""
+    id="search"
     placeholder="Filtrer"
     v-model="letters"
     @keyup="filter"
@@ -48,6 +55,7 @@
       <p>{{ task.description }}</p>
       <p>Échéance: {{ convertCase(task.temporality) }}</p>
       <button class="btn" @click="() => deleteTask(task.id)">suppr</button>
+      <button class="btn" @click="() => toggle(task)">modif</button>
     </div>
   </div>
 </template>
@@ -55,13 +63,19 @@
 <script>
 import { ref, watch } from "vue";
 import tasksService from "@/services/tasks.js";
+import MyModal from "../components/MyModal.vue";
 export default {
   name: "TasksView",
+  components: {
+    MyModal,
+  },
   setup() {
     const tasks = ref([]);
     const letters = ref("");
     const selectedTemporality = ref("");
     let tasksFiltered = ref([]);
+    let isInEditMode = ref(false);
+    let taskToEdit = ref(null);
     tasks.value = tasksService.read();
 
     filter();
@@ -85,6 +99,20 @@ export default {
         console.log("tasksFiltered", tasksFiltered);
         console.log("selectedTemporlity.value", selectedTemporality.value);
       }
+    }
+
+    function toggle(task) {
+      taskToEdit.value = task;
+      isInEditMode.value = true;
+    }
+
+    function updateTask(task) {
+      console.log("updateTask", task);
+    }
+
+    function cancelEdit() {
+      isInEditMode.value = false;
+      taskToEdit.value = null;
     }
 
     function deleteTask(id) {
@@ -111,6 +139,11 @@ export default {
       convertCase,
       filter,
       deleteTask,
+      isInEditMode,
+      taskToEdit,
+      toggle,
+      updateTask,
+      cancelEdit,
     };
   },
 };
@@ -130,5 +163,10 @@ h2 {
 .radio-filters {
   display: flex;
   justify-content: center;
+}
+#search {
+  height: 2rem;
+  color: rgb(9, 103, 192);
+  font-size: 1.5rem;
 }
 </style>
