@@ -109,6 +109,7 @@ button {
   height: 2rem;
   margin: 1rem auto;
   border: 0.2rem solid #42b983;
+  border-radius: 0.3rem;
 }
 textarea {
   height: auto;
@@ -120,5 +121,9 @@ button {
 }
 h2 {
   color: #42b983;
+}
+button:disabled {
+  color: rgba(255, 0, 0, 0.2);
+  cursor: not-allowed;
 }
 </style>

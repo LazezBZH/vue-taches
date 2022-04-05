@@ -1,6 +1,5 @@
 <template>
   <h2>Toutes les tâches</h2>
-  {{ isInEditMode }}
   <MyModal
     v-if="isInEditMode"
     :task="taskToEdit"
@@ -54,8 +53,8 @@
       <h3>{{ task.name }}</h3>
       <p>{{ task.description }}</p>
       <p>Échéance: {{ convertCase(task.temporality) }}</p>
-      <button class="btn" @click="() => deleteTask(task.id)">suppr</button>
-      <button class="btn" @click="() => toggle(task)">modif</button>
+      <button @click="() => deleteTask(task.id)">Supprimer</button>
+      <button @click="() => toggle(task)">Modifier</button>
     </div>
   </div>
 </template>
@@ -108,6 +107,9 @@ export default {
 
     function updateTask(task) {
       console.log("updateTask", task);
+      tasksService.updateTask(task);
+      tasks.value = tasksService.read();
+      cancelEdit();
     }
 
     function cancelEdit() {
@@ -168,5 +170,14 @@ h2 {
   height: 2rem;
   color: rgb(9, 103, 192);
   font-size: 1.5rem;
+}
+button {
+  margin: 0.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: #42b983;
+  color: white;
+  padding: 0.4rem;
+  cursor: pointer;
 }
 </style>

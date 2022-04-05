@@ -2,7 +2,7 @@
   <div class="modal-background">
     <div class="modal">
       <div>
-        <h2>Modifier une tâche</h2>
+        <h2>Modifier cette tâche</h2>
         <form @submit.prevent="saveTask">
           <input
             type="text"
@@ -122,8 +122,8 @@ export default {
 }
 input,
 textarea,
-select,
-button {
+select {
+  width: 60%;
   margin: 0.5rem auto;
 }
 input,
@@ -132,5 +132,15 @@ select {
 }
 button {
   margin: 0.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: #42b983;
+  color: white;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+button:disabled {
+  color: rgba(255, 0, 0, 0.4);
+  cursor: not-allowed;
 }
 </style>
